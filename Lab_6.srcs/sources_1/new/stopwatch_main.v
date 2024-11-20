@@ -23,6 +23,8 @@
 module stopwatch_main(
     input clk,
     input reset,
+    input start,
+    input stop,
     input [9:0] switch,
     output [3:0] an,
     output [6:0] sseg
@@ -44,22 +46,12 @@ state_machine c6(
     .in1(in1),
     .in2(in2),
     .in3(in3),
+    .start(start),
+    .stop(stop),
     .switch(switch),
     .an(an),
     .sseg(sseg),
     .counter({time3, time2, time1, time0})
     
     );
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 endmodule

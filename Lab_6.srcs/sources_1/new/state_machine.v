@@ -23,6 +23,8 @@
 module state_machine(
     input clk,
     input reset,
+    input start,
+    input stop,
     input [9:0] switch,
     input [6:0] in0,
     input [6:0] in1,
@@ -37,6 +39,7 @@ module state_machine(
     reg [1:0] next_state;
     wire [1:0] mode;
     wire [7:0] load_value;
+    reg start_count = 0;
     
     assign load_value = {
         switch[7], 
@@ -50,43 +53,64 @@ module state_machine(
     };
     assign mode = {switch[9], switch[8]};
     
-// keep in mind clk is being fed slow_clock, which updates each millisecond
-    always @(posedge clk or posedge reset) begin
-        case (mode)
-            2'b00: 
-            begin
-                if (reset)
-                    counter <= 0;
-                else
-                    counter <= counter + 1;
-            end
-            2'b01: 
-            begin
-                if (reset)
-                    counter <= {load_value, 8'b00000000};
-                else
-                    counter <= counter + 1;
-            end
-            2'b10: 
-            begin
-                if (reset)
-                    counter <= 14'b10011100001111;
-                else
-                    counter <= counter - 1;
-            end
-            2'b11: 
-            begin
-                if (reset)
-                    counter <= {load_value, 8'b11000110};
-                else
-                    counter <= counter - 1;
-            end
-        endcase
-        
-        if (reset) state <= 2'b00;
-        else state <= next_state;
+     // Synchronize reset
+    reg reset_sync1, reset_sync2;
+    always @(posedge clk) begin
+        reset_sync1 <= reset;
+        reset_sync2 <= reset_sync1;
     end
+    wire reset_sync = reset_sync2;
     
+// keep in mind clk is being fed slow_clock, which updates each millisecond
+    always @(posedge clk) begin
+        if (reset_sync) begin
+            case (mode)
+                2'b00: counter <= 0;
+                2'b01: counter <= {load_value, 8'b00000000};
+                2'b10: counter <= 16'b1001100110011001;
+                2'b11: counter <= {load_value, 8'b10011001};
+            endcase
+        end
+        else begin
+            case (mode)
+                2'b00: 
+                    begin
+                    if (start_count) counter <= counter + 1;
+                    if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
+                    if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
+                    if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 0; end
+                    end
+                2'b01: 
+                    begin
+                    if (start_count) counter <= counter + 1;
+                    if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
+                    if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
+                    if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 0; end
+                    end
+                2'b10: 
+                    begin
+                    if (start_count) counter <= counter - 1;
+                    if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
+                    if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
+                    if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
+                    if (counter == 0) begin start_count <= 0; counter <= 16'b1001100110011001; end
+                    end
+                2'b11: 
+                    begin
+                    if (start_count) counter <= counter - 1;
+                    if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
+                    if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
+                    if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
+                    if (counter == 0) begin start_count <= 0; counter <= 16'b1001100110011001; end
+                    end
+            endcase
+        end
+            state <= next_state;
+            if (start) start_count <= 1;
+            else if (stop) start_count <= 0;    
+    end 
     // turn on one anode at a time
     // with a 4ms refresh rate; 15hz, there will be slight flickering
     always @(*) begin
@@ -116,6 +140,3 @@ module state_machine(
         endcase
      end 
 endmodule
-
-
-
