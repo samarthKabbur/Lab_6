@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 11/19/2024 05:41:11 PM
+// Create Date: 11/19/2024 06:10:03 PM
 // Design Name: 
-// Module Name: stopwatch_main
+// Module Name: state_machine
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,22 +20,28 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clkdiv(
+module state_machine(
     input clk,
     input reset,
-    output clk_out
-
+    input [6:0] in0,
+    input [6:0] in1,
+    input [6:0] in2,
+    input [6:0] in3,
+    output reg [3:0] an,
+    output reg [3:0] sseg
     );
-    reg [25:0] counter;
     
-    initial begin
-    counter = 0;
-    end
+    reg [1:0] state;
+    reg [1:0] next_state;
     
-    always @(posedge clk) begin
-        if (reset)
-            counter = 0;
-        else
-            counter = counter + 1;
-        end
+    
+    
+    
+    
+    
+    
+    
 endmodule
+
+
+

@@ -21,17 +21,31 @@
 
 
 module stopwatch_main(
-    input clk
-
-
-
+    input clk,
+    input reset,
+    input [9:0] sw,
+    output [3:0] an,
+    output [6:0] sseg
     );
+    
+wire slow_clock;
+wire [6:0] in0, in1, in2, in3;
+// wire 
 
-clkdiv c1();
-mode1 c2();
-mode2 c3();
-mode3 c4();
-mode4 c5();
+clkdiv c1(.clk(clk), .reset(reset), .clk_out(slow_clock));
+BCD_converter c2(.seg(in0));
+BCD_converter c3(.seg(in1));
+BCD_converter c4(.seg(in2));
+BCD_converter c5(.seg(in3));
+state_machine c6(
+    .clk(slow_clk),
+    .in0(in0),
+    .in1(in1),
+    .in2(in2),
+    .in3(in3),
+    .an(an),
+    .sseg(sseg)
+    );
     
     
     
