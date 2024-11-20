@@ -23,7 +23,8 @@
 module clkdiv(
     input clk,
     input reset,
-    output clk_out
+    output clk_out,
+    output refresh
 
     );
     // Set a value so that the output is a 1ms clock, will calculate later lmao:)
@@ -33,7 +34,7 @@ module clkdiv(
     initial begin
     divider = 0;
     end
-    
+    assign refresh = divider[10];
     assign clk_out = divider[25];
     
     always @(posedge clk) begin

@@ -22,6 +22,7 @@
 
 module state_machine(
     input clk,
+    input refresh,
     input reset,
     input start,
     input stop,
@@ -53,17 +54,9 @@ module state_machine(
     };
     assign mode = {switch[9], switch[8]};
     
-     // Synchronize reset
-    reg reset_sync1, reset_sync2;
-    always @(posedge clk) begin
-        reset_sync1 <= reset;
-        reset_sync2 <= reset_sync1;
-    end
-    wire reset_sync = reset_sync2;
-    
 // keep in mind clk is being fed slow_clock, which updates each millisecond
     always @(posedge clk) begin
-        if (reset_sync) begin
+        if (reset) begin
             case (mode)
                 2'b00: counter <= 0;
                 2'b01: counter <= {load_value, 8'b00000000};
@@ -76,43 +69,46 @@ module state_machine(
                 2'b00: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] + 1;
-                    if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
-                    if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
-                    if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 0; end
+                    if (counter[3:0] == 4'b1001) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
+                    if (counter[7:4] == 4'b1001) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
+                    if (counter[11:8] == 4'b1001) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
+                    if (counter[15:12] == 4'b1001) begin start_count <= 0; counter <= 0; end
                     end
                 2'b01: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] + 1;
-                    if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
-                    if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
-                    if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 0; end
+                    if (counter[3:0] == 4'b1001) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
+                    if (counter[7:4] == 4'b1001) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
+                    if (counter[11:8] == 4'b1001) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
+                    if (counter[15:12] == 4'b1001) begin start_count <= 0; counter <= 0; end
                     end
                 2'b10: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] - 1;
-                    if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
-                    if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
-                    if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
+                    if (counter[3:0] == 4'b0000) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
+                    if (counter[7:4] == 4'b0000) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
+                    if (counter[11:8] == 4'b0000) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
                     if (counter == 0) begin start_count <= 0; counter <= 16'b1001100110011001; end
                     end
                 2'b11: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] - 1;
-                    if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
-                    if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
-                    if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
+                    if (counter[3:0] == 4'b0000) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
+                    if (counter[7:4] == 4'b0000) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
+                    if (counter[11:8] == 4'b0000) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
                     if (counter == 0) begin start_count <= 0; counter <= 16'b1001100110011001; end
                     end
             endcase
         end
-            state <= next_state;
             if (start) start_count <= 1;
             else if (stop) start_count <= 0;    
     end 
     // turn on one anode at a time
     // with a 4ms refresh rate; 15hz, there will be slight flickering
+    always @(posedge refresh) begin
+            state <= next_state;
+    end
+    
     always @(*) begin
         case (state)
             2'b00: an = 4'b1110;
