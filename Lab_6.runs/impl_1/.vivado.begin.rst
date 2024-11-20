@@ -28,3 +28,13 @@
     <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="65300" HostCore="16" HostMemory="016775553024">
     </Process>
 </ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="43340" HostCore="16" HostMemory="016775553024">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="19432" HostCore="16" HostMemory="016775553024">
+    </Process>
+</ProcessHandle>

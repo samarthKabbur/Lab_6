@@ -26,18 +26,20 @@ module clkdiv(
     output clk_out
 
     );
-    // Set a value so that the output is a 1ms clock
-    // Counter is a local variable
-    reg [10:0] counter;
+    // Set a value so that the output is a 1ms clock, will calculate later lmao:)
+    // divider is a local variable
+    reg [25:0] divider;
     
     initial begin
-    counter = 0;
+    divider = 0;
     end
+    
+    assign clk_out = divider[25];
     
     always @(posedge clk) begin
         if (reset)
-            counter = 0;
+            divider = 0;
         else
-            counter = counter + 1;
+            divider = divider + 1;
         end
 endmodule

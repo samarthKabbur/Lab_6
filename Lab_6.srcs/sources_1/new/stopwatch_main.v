@@ -38,7 +38,7 @@ BCD_converter c2(.seg(in0), .sw(time0));
 BCD_converter c3(.seg(in1), .sw(time1));
 BCD_converter c4(.seg(in2), .sw(time2));
 BCD_converter c5(.seg(in3), .sw(time3));
-state_machine c7(
+state_machine c6(
     .clk(slow_clk),
     .in0(in0),
     .in1(in1),

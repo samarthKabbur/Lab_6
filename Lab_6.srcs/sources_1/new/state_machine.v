@@ -39,8 +39,6 @@ module state_machine(
     wire [7:0] load_value;
     
     assign load_value = {
-        switch[9], 
-        switch[8],
         switch[7], 
         switch[6],
         switch[5], 
