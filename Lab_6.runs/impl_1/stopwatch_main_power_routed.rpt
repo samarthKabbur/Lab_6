@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
-| Date             : Tue Nov 19 20:53:16 2024
+| Date             : Wed Nov 20 00:26:35 2024
 | Host             : supercomputerjr running 64-bit major release  (build 9200)
 | Command          : report_power -file stopwatch_main_power_routed.rpt -pb stopwatch_main_power_summary_routed.pb -rpx stopwatch_main_power_routed.rpx
 | Design           : stopwatch_main
@@ -53,12 +53,12 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |    <0.001 |        3 |       --- |             --- |
-| Slice Logic    |    <0.001 |      135 |       --- |             --- |
+| Slice Logic    |    <0.001 |      122 |       --- |             --- |
 |   LUT as Logic |    <0.001 |       58 |     20800 |            0.28 |
-|   CARRY4       |    <0.001 |       15 |      8150 |            0.18 |
-|   Register     |    <0.001 |       44 |     41600 |            0.11 |
+|   CARRY4       |    <0.001 |       12 |      8150 |            0.15 |
+|   Register     |    <0.001 |       34 |     41600 |            0.08 |
 |   Others       |     0.000 |        4 |       --- |             --- |
-| Signals        |    <0.001 |      126 |       --- |             --- |
+| Signals        |    <0.001 |      113 |       --- |             --- |
 | I/O            |     0.026 |       14 |       106 |           13.21 |
 | Static Power   |     0.072 |          |           |                 |
 | Total          |     0.100 |          |           |                 |
