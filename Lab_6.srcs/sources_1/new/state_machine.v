@@ -29,7 +29,7 @@ module state_machine(
     input [6:0] in2,
     input [6:0] in3,
     output reg [3:0] an,
-    output reg [3:0] sseg,
+    output reg [6:0] sseg,
     output reg [15:0] counter
     );
     
@@ -58,32 +58,35 @@ module state_machine(
             2'b00: 
             begin
                 if (reset)
-                    counter = 0;
+                    counter <= 0;
                 else
-                    counter = counter + 1;
+                    counter <= counter + 1;
             end
             2'b01: 
             begin
                 if (reset)
-                    counter = load_value;
+                    counter <= {load_value, 8'b00000000};
                 else
-                    counter = counter + 1;
+                    counter <= counter + 1;
             end
             2'b10: 
             begin
                 if (reset)
-                    counter = 14'b10011100001111;
+                    counter <= 14'b10011100001111;
                 else
-                    counter = counter - 1;
+                    counter <= counter - 1;
             end
             2'b11: 
             begin
                 if (reset)
-                    counter = load_value;
+                    counter <= {load_value, 8'b11000110};
                 else
-                    counter = counter - 1;
+                    counter <= counter - 1;
             end
         endcase
+        
+        if (reset) state <= 2'b00;
+        else state <= next_state;
     end
     
     // turn on one anode at a time
@@ -106,6 +109,14 @@ module state_machine(
         endcase
     end   
     
+    always @(*) begin
+        case (state)
+            2'b00: next_state = 2'b01;
+            2'b01: next_state = 2'b10;
+            2'b10: next_state = 2'b11;
+            2'b11: next_state = 2'b00;
+        endcase
+     end 
 endmodule
 
 
