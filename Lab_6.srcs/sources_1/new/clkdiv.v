@@ -29,13 +29,13 @@ module clkdiv(
     );
     // Set a value so that the output is a 1ms clock, will calculate later lmao:)
     // divider is a local variable
-    reg [18:0] divider;
+    reg [19:0] divider;
     
     initial begin
     divider = 0;
     end
     assign refresh = divider[10];
-    assign clk_out = divider[18];
+    assign clk_out = divider[19];
     
     always @(posedge clk) begin
         divider = divider + 1;
