@@ -48,7 +48,6 @@ state_machine c6(
     .in2(in2),
     .in3(in3),
     .start(start),
-    .stop(stop),
     .reset(reset),
     .switch(switch),
     .an(an),
