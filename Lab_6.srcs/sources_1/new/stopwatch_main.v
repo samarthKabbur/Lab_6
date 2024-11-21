@@ -49,10 +49,10 @@ state_machine c6(
     .in3(in3),
     .start(start),
     .stop(stop),
+    .reset(reset),
     .switch(switch),
     .an(an),
     .sseg(sseg),
     .lounter({time3, time2, time1, time0})
-    
     );
 endmodule

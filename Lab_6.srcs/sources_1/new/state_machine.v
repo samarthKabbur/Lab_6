@@ -71,33 +71,33 @@ module state_machine(
                 2'b00: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] + 1;
-                    if (counter[3:0] == 4'b1001) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
-                    if (counter[7:4] == 4'b1001) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
-                    if (counter[11:8] == 4'b1001) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1001) begin start_count <= 0; counter <= 0; end
+                    if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
+                    if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
+                    if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 0; end
                     end
                 2'b01: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] + 1;
-                    if (counter[3:0] == 4'b1001) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
-                    if (counter[7:4] == 4'b1001) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
-                    if (counter[11:8] == 4'b1001) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1001) begin start_count <= 0; counter <= 0; end
+                    if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
+                    if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
+                    if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 0; end
                     end
                 2'b10: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] - 1;
-                    if (counter[3:0] == 4'b0000) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
-                    if (counter[7:4] == 4'b0000) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
-                    if (counter[11:8] == 4'b0000) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
+                    if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
+                    if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
+                    if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
                     if (counter == 4'b1111) begin start_count <= 0; counter <= 16'b1001100110011001; end
                     end
                 2'b11: 
                     begin
                     if (start_count) counter[3:0] <= counter[3:0] - 1;
-                    if (counter[3:0] == 4'b0000) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
-                    if (counter[7:4] == 4'b0000) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
-                    if (counter[11:8] == 4'b0000) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
+                    if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
+                    if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
+                    if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
                     if (counter == 0) begin start_count <= 0; counter <= 16'b1001100110011001; end
                     end
             endcase

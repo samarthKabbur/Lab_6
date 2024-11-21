@@ -38,9 +38,6 @@ module clkdiv(
     assign clk_out = divider[18];
     
     always @(posedge clk) begin
-        if (reset)
-            divider = 0;
-        else
-            divider = divider + 1;
-        end
+        divider = divider + 1;
+    end
 endmodule
