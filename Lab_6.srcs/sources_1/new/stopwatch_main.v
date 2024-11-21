@@ -52,7 +52,7 @@ state_machine c6(
     .switch(switch),
     .an(an),
     .sseg(sseg),
-    .counter({time3, time2, time1, time0})
+    .lounter({time3, time2, time1, time0})
     
     );
 endmodule

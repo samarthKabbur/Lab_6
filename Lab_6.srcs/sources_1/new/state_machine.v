@@ -33,9 +33,10 @@ module state_machine(
     input [6:0] in3,
     output reg [3:0] an,
     output reg [6:0] sseg,
-    output reg [15:0] counter
+    output [15:0] lounter
     );
     
+    reg [15:0] counter;
     reg [1:0] state;
     reg [1:0] next_state;
     wire [1:0] mode;
@@ -53,16 +54,17 @@ module state_machine(
         switch[0]
     };
     assign mode = {switch[9], switch[8]};
-    
+    assign lounter = counter;
 // keep in mind clk is being fed slow_clock, which updates each millisecond
     always @(posedge clk) begin
         if (reset) begin
             case (mode)
-                2'b00: counter <= 0;
-                2'b01: counter <= {load_value, 8'b00000000};
+                2'b00: counter <= 16'b0;
+                2'b01: counter <= {load_value, 8'b0};
                 2'b10: counter <= 16'b1001100110011001;
                 2'b11: counter <= {load_value, 8'b10011001};
             endcase
+            start_count <= 0;
         end
         else begin
             case (mode)
@@ -88,7 +90,7 @@ module state_machine(
                     if (counter[3:0] == 4'b0000) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
                     if (counter[7:4] == 4'b0000) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
                     if (counter[11:8] == 4'b0000) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
-                    if (counter == 0) begin start_count <= 0; counter <= 16'b1001100110011001; end
+                    if (counter == 4'b1111) begin start_count <= 0; counter <= 16'b1001100110011001; end
                     end
                 2'b11: 
                     begin
