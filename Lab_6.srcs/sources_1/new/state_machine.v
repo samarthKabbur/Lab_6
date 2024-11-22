@@ -41,7 +41,7 @@ module state_machine(
     wire [7:0] load_value;
     reg start_count = 0;
     reg [7:0] huge_load = 0;
-    reg [5:0] button_debounce = 0;
+    reg [2:0] button_debounce = 0;
     
     assign load_value = {
         switch[7], 
@@ -63,7 +63,7 @@ module state_machine(
                 2'b10: counter <= 16'b1001100110011001;
                 2'b11: counter <= {huge_load, 8'b10011001};
             endcase
-            button_debounce <= 0;
+            start_count <= 0;
         end
         else begin
             case (mode)
@@ -73,7 +73,7 @@ module state_machine(
                     if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
                     if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
                     if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1010) begin button_debounce <= 0; counter <= 8'b10011001; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 8'b10011001; end
                     end
                 2'b01: 
                     begin
@@ -81,7 +81,7 @@ module state_machine(
                     if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
                     if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
                     if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1010) begin button_debounce <= 0; counter <= 8'b10011001; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 8'b10011001; end
                     end
                 2'b10: 
                     begin
@@ -89,7 +89,7 @@ module state_machine(
                     if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
                     if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
                     if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
-                    if (counter == 4'b1111) begin button_debounce <= 0; counter <= 0; end
+                    if (counter == 4'b1111) begin start_count <= 0; counter <= 0; end
                     end
                 2'b11: 
                     begin
@@ -97,9 +97,12 @@ module state_machine(
                     if (counter[3:0] == 4'b1111) begin counter[3:0] <= 4'b1001; counter[7:4] <= counter[7:4] - 1; end
                     if (counter[7:4] == 4'b1111) begin counter[7:4] <= 4'b1001; counter[11:8]<= counter[11:8] - 1; end
                     if (counter[11:8] == 4'b1111) begin counter[11:8] <= 4'b1001; counter[15:12]<= counter[15:12] - 1; end
-                    if (counter == 0) begin button_debounce <= 0; counter <= 0; end
+                    if (counter == 4'b1111) begin start_count <= 0; counter <= 0; end
                     end
             endcase
+            button_debounce <= {button_debounce[1:0], start};
+            if (button_debounce == 3'b111) start_count <= !start_count;
+            
         end   
     end 
     // turn on one anode at a time
@@ -108,8 +111,6 @@ module state_machine(
         huge_load = load_value;
         if (huge_load[7:4] > 4'b1001) huge_load[7:4] <= 4'b1001;
         if (huge_load[3:0] > 4'b1001) huge_load[3:0] <= 4'b1001;
-        if (start) button_debounce = button_debounce + 1;
-        if (button_debounce[5]) start_count = ~start_count;
         state <= next_state;
     end
     

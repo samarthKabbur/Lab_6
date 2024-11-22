@@ -3,12 +3,12 @@
 # SW Build 5076996 on Wed May 22 18:37:14 MDT 2024
 # IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
 # SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
-# Start of session at: Thu Nov 21 22:46:08 2024
-# Process ID: 4440
-# Current directory: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/synth_1
-# Command line: vivado.exe -log stopwatch_main.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source stopwatch_main.tcl
-# Log file: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/synth_1/stopwatch_main.vds
-# Journal file: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/synth_1\vivado.jou
+# Start of session at: Thu Nov 21 20:12:37 2024
+# Process ID: 33652
+# Current directory: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/impl_1
+# Command line: vivado.exe -log stopwatch_main.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source stopwatch_main.tcl -notrace
+# Log file: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/impl_1/stopwatch_main.vdi
+# Journal file: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/impl_1\vivado.jou
 # Running On        :supercomputerjr
 # Platform          :Windows Server 2016 or Windows 10
 # Operating System  :22631
@@ -19,6 +19,6 @@
 # Host memory       :16775 MB
 # Swap memory       :20401 MB
 # Total Virtual     :37176 MB
-# Available Virtual :16848 MB
+# Available Virtual :14887 MB
 #-----------------------------------------------------------
 source stopwatch_main.tcl -notrace
