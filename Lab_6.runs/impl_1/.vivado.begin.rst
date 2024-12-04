@@ -1,25 +1,10 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="30212" HostCore="16" HostMemory="016775553024">
+    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="4852" HostCore="16" HostMemory="016775553024">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="18356" HostCore="16" HostMemory="016775553024">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="6980" HostCore="16" HostMemory="016775553024">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="29144" HostCore="16" HostMemory="016775553024">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="28532" HostCore="16" HostMemory="016775553024">
+    <Process Command="vivado.bat" Owner="samar" Host="SUPERCOMPUTERJR" Pid="18212" HostCore="16" HostMemory="016775553024">
     </Process>
 </ProcessHandle>

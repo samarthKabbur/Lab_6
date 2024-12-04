@@ -73,7 +73,7 @@ module state_machine(
                     if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
                     if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
                     if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 8'b10011001; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 16'b1001100110011001; end
                     end
                 2'b01: 
                     begin
@@ -81,7 +81,7 @@ module state_machine(
                     if (counter[3:0] == 4'b1010) begin counter[3:0] <= 4'b0000; counter[7:4] <= counter[7:4] + 1; end
                     if (counter[7:4] == 4'b1010) begin counter[7:4] <= 4'b0000; counter[11:8]<= counter[11:8] + 1; end
                     if (counter[11:8] == 4'b1010) begin counter[11:8] <= 4'b0000; counter[15:12]<= counter[15:12] + 1; end
-                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 8'b10011001; end
+                    if (counter[15:12] == 4'b1010) begin start_count <= 0; counter <= 16'b1001100110011001; end
                     end
                 2'b10: 
                     begin

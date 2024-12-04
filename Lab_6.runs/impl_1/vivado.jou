@@ -3,8 +3,8 @@
 # SW Build 5076996 on Wed May 22 18:37:14 MDT 2024
 # IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
 # SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
-# Start of session at: Thu Nov 21 22:46:48 2024
-# Process ID: 6836
+# Start of session at: Tue Dec  3 15:01:53 2024
+# Process ID: 32292
 # Current directory: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/impl_1
 # Command line: vivado.exe -log stopwatch_main.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source stopwatch_main.tcl -notrace
 # Log file: D:/samar/Projects/Programming/Vivado/Lab_6/Lab_6.runs/impl_1/stopwatch_main.vdi
@@ -19,6 +19,6 @@
 # Host memory       :16775 MB
 # Swap memory       :20401 MB
 # Total Virtual     :37176 MB
-# Available Virtual :16876 MB
+# Available Virtual :18195 MB
 #-----------------------------------------------------------
 source stopwatch_main.tcl -notrace
